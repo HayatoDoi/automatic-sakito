@@ -1,12 +1,9 @@
 import requests
+import user
 from bs4 import BeautifulSoup 
 
 def main():
-  print('Login to SAKITO')
-  user = input('User:')
-  password = input('Password:')
-  print('\n')
-  scraping(user,password)
+  scraping(user.email,user.password)
 
 def scraping(user,password):
   session = requests.Session()
@@ -26,14 +23,16 @@ def scraping(user,password):
   session.post('https://sakito.cirkit.jp/user/sign_in', data=login_payload)
 
   # がちゃを回す
+  response = session.get('https://sakito.cirkit.jp/user/point/new')
+  soup = BeautifulSoup(response.text, 'html.parser')
+  authenticity_token = soup.head.find(attrs={'name':'csrf-token'})['content']
   gacha_payload = {
     '_method': 'post',
     'authenticity_token': authenticity_token,
   }
-  response = session.get('https://sakito.cirkit.jp/user')
-  response = session.get('https://sakito.cirkit.jp/user/point/new')
-  # response = session.post('https://sakito.cirkit.jp/user/point', data=login_payload)
-  print(response.text)
+  response = session.post('https://sakito.cirkit.jp/user/point', data=gacha_payload)
+
+  print(gacha_payload)
 
 if __name__ == '__main__':
   main()
