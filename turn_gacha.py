@@ -1,11 +1,11 @@
 import requests
-import user
+import config
 from bs4 import BeautifulSoup 
 
 def main():
-  scraping(user.email,user.password)
+  scraping(config.sakito['email'], config.sakito['password'])
 
-def scraping(user,password):
+def scraping(email,password):
   session = requests.Session()
   # get authenticity_token
   response = session.get('https://sakito.cirkit.jp/user/sign_in')
@@ -15,7 +15,7 @@ def scraping(user,password):
   login_payload = {
     'utf8': '✓',
     'authenticity_token': authenticity_token,
-    'user[email]': user,
+    'user[email]': email,
     'user[password]': password,
     'user[remember_me]': '0',
     'commit': 'ログイン'
