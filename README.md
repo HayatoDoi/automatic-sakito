@@ -2,14 +2,20 @@
 [sakito.cirkit.jp](https://sakito.cirkit.jp/)を自動化するスクリプト
 
 # 動かし方
-1. ユーザファイルを作成する
+1. 設定ファイルを作成する
 ```bash
-vim user.py
+vim config.py
 ```
 - ファイルの中身は次のとおりです。
 ```python
-email = 'your email'
-password = 'your password'
+sakito = {
+  'email' : 'bxxxxxxx@planet.kanazawa-it.ac.jp',
+  'password' : 'xxxxxxxxxxxxxxxxxx',
+}
+
+slack = {
+  'webhooksUrl' : 'https[:]//hooks.slack.com/services/xxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx/xxxxxxxxxxxxxx',
+}
 ```
 
 2. Dockerイメージを作成
@@ -17,11 +23,12 @@ password = 'your password'
 docker build -t automatic-sakito .
 ```
 
-3. cronを使って毎日1時にスクリプトを走らせる
+3. cronを使って毎日1時にガチャを回す, 毎時5分にアンケートの確認
 ```bash
 crontab -e
 ```
 - ファイルの中身は次のとおりです。
 ```crontab
-0 1 * * * docker run --name sakitoscript automatic-sakito /scripts/automatic-sakito.py -a && docker rm sakitoscript
+0 1 * * * docker run --rm --name sakitoscript automatic-sakito /scripts/turn_gacha.py -a
+5 * * * * docker run --rm --name sakitoscript automatic-sakito /scripts/check_new_qusation.py -a
 ```
