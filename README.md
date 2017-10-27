@@ -29,6 +29,6 @@ crontab -e
 ```
 - ファイルの中身は次のとおりです。
 ```crontab
-0 1 * * * docker run --rm --name sakitoscript automatic-sakito /scripts/turn_gacha.py -a
-5 * * * * docker run --rm --name sakitoscript automatic-sakito /scripts/check_new_qusation.py -a
+0 1 * * * docker run --rm --name sakitoscript automatic-sakito python /scripts/turn_gacha.py
+5 * * * * docker run --rm --name sakitoscript automatic-sakito python /scripts/check_new_qusation.py
 ```
