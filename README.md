@@ -1,7 +1,11 @@
 # automatic-sakito
 [sakito.cirkit.jp](https://sakito.cirkit.jp/)を自動化するスクリプト
 
-# 動かし方
+## スクリプトの説明
+- [turn_gacha.py](https://github.com/HayatoDoi/automatic-sakito/blob/master/turn_gacha.py) : ガチャを回す,標準出力は引いたガチャの得点
+- [check_new_question.py](https://github.com/HayatoDoi/automatic-sakito/blob/master/check_new_question.py) : 新規アンケートの確認,新規アンケートがあった場合Slackへ通知を送る
+
+## 動かし方
 1. 設定ファイルを作成する
 ```bash
 vim config.py
