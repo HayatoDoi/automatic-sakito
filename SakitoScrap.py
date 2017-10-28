@@ -1,3 +1,8 @@
+# File name           : SakitoScrap.py
+# Author              : Hayato Doi
+# Outline             : Sakitoの自動化を行うクラス
+# license             : MIT
+# Copyright (c) 2017, Hayato Doi
 import requests
 from bs4 import BeautifulSoup
 
