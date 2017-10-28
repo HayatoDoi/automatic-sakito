@@ -32,7 +32,7 @@ class SakitoScrap:
     soup = BeautifulSoup(response.text, 'html.parser')
     return int(soup.body.findAll('h1')[0].string)
 
-  def checkNewQusation(self):
+  def checkNewQuestion(self):
     s = self.__session
     response = s.get('https://sakito.cirkit.jp/surveys')
     soup = BeautifulSoup(response.text, 'html.parser')

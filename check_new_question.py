@@ -4,7 +4,7 @@ import slackweb
 
 def main():
   sakitoScrap = SakitoScrap.SakitoScrap(config.sakito['email'], config.sakito['password'])
-  questionList = sakitoScrap.checkNewQusation()
+  questionList = sakitoScrap.checkNewQuestion()
 
   #新規アンケートがあればslackに通知を送る
   slackUrl = config.slack['webhooksUrl']
