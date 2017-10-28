@@ -17,6 +17,7 @@ slack = {
   'webhooksUrl' : 'https[:]//hooks.slack.com/services/xxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxx/xxxxxxxxxxxxxx',
 }
 ```
+webhookUrlは[こちら](https://slack.com/services/new/incoming-webhook)から生成してください。
 
 2. Dockerイメージを作成
 ```bash
