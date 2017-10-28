@@ -7,8 +7,8 @@ def main():
   questionList = sakitoScrap.checkNewQuestion()
 
   #新規アンケートがあればslackに通知を送る
-  slackUrl = config.slack['webhooksUrl']
   if(not len(questionList) == 0):
+    slackUrl = config.slack['webhooksUrl']
     sendText = '新規アンケートが追加されました。\n'
     for test in questionList:
       sendText = sendText + '・' + test + '\n'
