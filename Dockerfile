@@ -1,4 +1,8 @@
-FROM python:3.6
-MAINTAINER HayatoDoi
-RUN pip install requests beautifulsoup4 slackweb
-COPY *.py /scripts/
+FROM python:3.6-alpine
+
+LABEL maintainer="HayatoDoi"
+
+WORKDIR /scripts
+ADD requirements.txt .
+RUN pip install -r requirements.txt
+COPY *.py ./
