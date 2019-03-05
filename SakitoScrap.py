@@ -5,6 +5,7 @@
 # Copyright (c) 2017, Hayato Doi
 import requests
 from bs4 import BeautifulSoup
+import re
 
 class SakitoScrap:
   def __init__(self, email:str, password:str):
@@ -36,6 +37,14 @@ class SakitoScrap:
     response = s.get('https://sakito.cirkit.jp/user')
     soup = BeautifulSoup(response.text, 'html.parser')
     return int(soup.body.findAll('h1')[0].string)
+
+  def getExchangePoint(self):
+    s = self.__session
+    response = s.get('https://sakito.cirkit.jp/user/prizes')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    pointsPer4 = soup.body.findAll('h4')[-1].string
+    points = re.match(r"\d{1,}", pointsPer4).group(0)
+    return int(points)
 
   def checkNewQuestion(self):
     s = self.__session
@@ -69,3 +78,14 @@ class SakitoScrap:
       'authenticity_token': authenticity_token,
     }
     response = s.post('https://sakito.cirkit.jp/user/prizes', data=gacha_payload)
+
+  def prizeExchange(self):
+    s = self.__session
+    response = s.get('https://sakito.cirkit.jp/user/prizes')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    authenticity_token = soup.head.find(attrs={'name':'csrf-token'})['content']
+    gacha_payload = {
+      '_method': 'put',
+      'authenticity_token': authenticity_token,
+    }
+    response = s.post('https://sakito.cirkit.jp/user/prizes/exchange', data=gacha_payload)
