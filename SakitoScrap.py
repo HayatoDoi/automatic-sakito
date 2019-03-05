@@ -46,6 +46,12 @@ class SakitoScrap:
     points = re.match(r"\d{1,}", pointsPer4).group(0)
     return int(points)
 
+  def getBonusPoint(self):
+    s = self.__session
+    response = s.get('https://sakito.cirkit.jp/user')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    return int(soup.body.findAll('h1')[1].string)
+
   def checkNewQuestion(self):
     s = self.__session
     response = s.get('https://sakito.cirkit.jp/surveys')
@@ -78,6 +84,17 @@ class SakitoScrap:
       'authenticity_token': authenticity_token,
     }
     response = s.post('https://sakito.cirkit.jp/user/prizes', data=gacha_payload)
+
+  def bonusGacha(self):
+    s = self.__session
+    response = s.get('https://sakito.cirkit.jp/user/bonus_point/new')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    authenticity_token = soup.head.find(attrs={'name':'csrf-token'})['content']
+    gacha_payload = {
+      '_method': 'post',
+      'authenticity_token': authenticity_token,
+    }
+    response = s.post('https://sakito.cirkit.jp/user/bonus_point', data=gacha_payload)
 
   def prizeExchange(self):
     s = self.__session
