@@ -58,3 +58,14 @@ class SakitoScrap:
       'authenticity_token': authenticity_token,
     }
     response = s.post('https://sakito.cirkit.jp/user/point', data=gacha_payload)
+
+  def prizeGacha(self):
+    s = self.__session
+    response = s.get('https://sakito.cirkit.jp/user/prizes/new')
+    soup = BeautifulSoup(response.text, 'html.parser')
+    authenticity_token = soup.head.find(attrs={'name':'csrf-token'})['content']
+    gacha_payload = {
+      '_method': 'post',
+      'authenticity_token': authenticity_token,
+    }
+    response = s.post('https://sakito.cirkit.jp/user/prizes', data=gacha_payload)
